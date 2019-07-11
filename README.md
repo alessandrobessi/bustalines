@@ -13,10 +13,10 @@ number of lines times the size of a pointer to char (which is
 4 bytes in 32-bit machines and 8 bytes in 64-bit machines).
 
 The class FileMap has four methods:
-* __init__: to create the mapping
-* __len__: to retrieve the number of lines mapped
-* __getitem__: to access to a given line
-* __del__: to unmap and free memory
+* `__init__`: to create the mapping
+* `__len__`: to retrieve the number of lines mapped
+* `__getitem__`: to access to a given line
+* `__del__`: to unmap and free memory
 
 The class FileMap can be easily and nicely integrated with the
 Dataset classes of deep learning frameworks like PyTorch and
