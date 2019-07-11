@@ -1,5 +1,5 @@
 from bustalines import FileMap
-from mxnet.gluon.data import Dataset
+from torch.utils.data import Dataset
 
 
 class FMDataset(Dataset):
