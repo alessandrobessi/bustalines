@@ -1,5 +1,6 @@
 import os
 from ctypes import *
+from typing import Union, List
 
 
 class Map(Structure):
@@ -29,9 +30,17 @@ class FileMap:
     def __len__(self) -> int:
         return lib.get_map_len(self.map)
 
-    def __getitem__(self, item: int) -> str:
-        s = lib.get_line(self.map, item)
-        return str(c_char_p(s).value)
+    def __getitem__(self, item: Union[int, slice]) -> Union[str, List[str]]:
+        if isinstance(item, int):
+            s = lib.get_line(self.map, item)
+            return str(c_char_p(s).value)
+        elif isinstance(item, slice):
+            lst = []
+            start, stop, step = item.indices(lib.get_map_len(self.map))
+            for i in range(start, stop, step):
+                s = lib.get_line(self.map, i)
+                lst.append(str(c_char_p(s).value))
+            return lst
 
     def __del__(self) -> None:
         lib.remove(self.map)
