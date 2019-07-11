@@ -10,9 +10,9 @@ class Map(Structure):
 
 
 dir = os.path.dirname(__file__)
-filename = os.path.join(dir, 'c', 'bustalines.so')
+shared_object = os.path.join(dir, 'c', 'bustalines.so')
 
-lib = CDLL(filename)
+lib = CDLL(shared_object)
 lib.create_map.restype = POINTER(Map)
 lib.print_line.argtypes = [POINTER(Map), c_int]
 lib.remove_map.argtypes = [POINTER(Map)]
