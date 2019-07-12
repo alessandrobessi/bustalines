@@ -23,9 +23,10 @@ lib.get_map_len.restype = c_ulong
 
 class FileMap:
 
-    def __init__(self, filename: str):
+    def __init__(self, filename: str, encoding: str = 'latin1'):
         filename = c_char_p(str.encode(filename))
         self.map = lib.create_map(filename)
+        self.encoding = encoding
 
     def __len__(self) -> int:
         return lib.get_map_len(self.map)
@@ -33,13 +34,13 @@ class FileMap:
     def __getitem__(self, item: Union[int, slice]) -> Union[str, List[str]]:
         if isinstance(item, int):
             s = lib.get_line(self.map, item)
-            return str(c_char_p(s).value)
+            return str(c_char_p(s).value.decode(self.encoding))
         elif isinstance(item, slice):
             lst = []
             start, stop, step = item.indices(lib.get_map_len(self.map))
             for i in range(start, stop, step):
                 s = lib.get_line(self.map, i)
-                lst.append(str(c_char_p(s).value))
+                lst.append(str(c_char_p(s).value.decode(self.encoding)))
             return lst
 
     def __del__(self) -> None:
