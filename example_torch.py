@@ -15,6 +15,6 @@ class FMDataset(Dataset):
 
 
 if __name__ == '__main__':
-    fmdataset = FMDataset('README.md')
+    fmdataset = FMDataset('.gitignore')
     print(len(fmdataset))
     print(fmdataset[0])
