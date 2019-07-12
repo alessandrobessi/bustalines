@@ -21,3 +21,9 @@ The class FileMap has four methods:
 The class FileMap can be easily and nicely integrated with the
 Dataset classes of deep learning frameworks like PyTorch and
 MxNet (see examples).
+
+The source of the C backend is provided. If you want to make some
+changes, then you have to re-build the shared object:
+```
+gcc -shared -o bustalines.so bustalines.c
+```
