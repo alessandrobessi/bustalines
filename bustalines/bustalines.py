@@ -34,13 +34,13 @@ class FileMap:
     def __getitem__(self, item: Union[int, slice]) -> Union[str, List[str]]:
         if isinstance(item, int):
             s = lib.get_line(self.map, item)
-            return str(c_char_p(s).value.decode(self.encoding))
+            return c_char_p(s).value.decode(self.encoding)
         elif isinstance(item, slice):
             lst = []
             start, stop, step = item.indices(lib.get_map_len(self.map))
             for i in range(start, stop, step):
                 s = lib.get_line(self.map, i)
-                lst.append(str(c_char_p(s).value.decode(self.encoding)))
+                lst.append(c_char_p(s).value.decode(self.encoding))
             return lst
 
     def __del__(self) -> None:
